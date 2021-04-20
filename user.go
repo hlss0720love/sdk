@@ -30,6 +30,12 @@ type User struct {
 	IsGrafanaAdmin bool   `json:"isGrafanaAdmin"`
 }
 
+type Password struct {
+	OldPassword    string `json:"oldPassword"`
+	NewPassword    string `json:"newPassword"`
+	ConfirmNew     string `json:"confirmNew"`
+}
+
 type UserRole struct {
 	LoginOrEmail string `json:"loginOrEmail"`
 	Role         string `json:"role"`
