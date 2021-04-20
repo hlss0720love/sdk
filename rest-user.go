@@ -73,6 +73,26 @@ func (r *Client) GetUser(ctx context.Context, id uint) (User, error) {
 	return user, err
 }
 
+// ChangePassword update user password.
+// Reflects PUT /api/user/password API call.
+func (r *Client) ChangePassword(ctx context.Context, pwd Password) error {
+	var (
+		raw  []byte
+		code int
+		err  error
+	)
+	if raw, err = json.Marshal(pwd); err != nil {
+		return err
+	}
+	if raw, code, err = r.put(ctx, "/api/user/password", nil, raw); err != nil {
+		return err
+	}
+	if code != 200 {
+		return fmt.Errorf("HTTP error %d: returns %s", code, raw)
+	}
+	return nil
+}
+
 // GetAllUsers gets all users.
 // Reflects GET /api/users API call.
 func (r *Client) GetAllUsers(ctx context.Context) ([]User, error) {
